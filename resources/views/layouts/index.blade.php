@@ -6,11 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>{{$title ?? ''}}</title>
-    <meta name="description" content="{{$description ?? ''}}"/>
+    <title>{{$seo['title'] ?? ''}}</title>
+    <meta name="description" content="{{$seo['desc'] ?? ''}}"/>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" media="all"/>
-    <script src="assets/js/jq.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{$url}}/css/styles.css" media="all"/>
+    <script src="{{$url}}/js/jq.js" type="text/javascript"></script>
+    <script src="{{$url}}/js/nav.js" type="text/javascript"></script>
+    <script src="{{$url}}/js/1.js" type="text/javascript"></script>
+    @yield('headStyles')
+    @yield('headScripts')
 
     <link rel="canonical" href="{{$canonLink ?? ''}}" />
 

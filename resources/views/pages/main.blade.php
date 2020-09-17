@@ -1,6 +1,5 @@
 @extends('layouts.index')
 @section('content')
-    <div class="wrapper">
         <div class="items">
             <div class="item">
                 <h4>Специальные предложения</h4>
@@ -12,8 +11,7 @@
                 @include('mainPageIncludes.specialOffer', ['special' => $right])
             </div>
             <div class="item">
-
+                @include('mainPageIncludes.news')
             </div>
         </div>
-    </div>
 @endsection
