@@ -4,6 +4,9 @@
 @endsection
 @section('headScripts')
     <script src="{{$assetsUrl}}/js/fotorama.js" type="text/javascript"></script>
+    <script>
+        window.myAjaxUrl = '{{$ajaxUrl}}'
+    </script>
 @endsection
 @section('content')
     <div class="navy">
@@ -43,6 +46,7 @@
             </div>
             <div id="order">
                 <form>
+                    @csrf
                     <legend>Оставить заявку:</legend>
 
                     <input type="hidden" name="item" value="{{$product->id}}">

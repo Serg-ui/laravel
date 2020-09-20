@@ -15,7 +15,7 @@
     <script src="{{$url}}/js/1.js" type="text/javascript"></script>
     @yield('headStyles')
     @yield('headScripts')
-
+    @yield('forAjaxRequest')
     <link rel="canonical" href="{{$canonLink ?? ''}}" />
 
 </head>

@@ -31,6 +31,7 @@ class Product extends Controller
        $fields = getFieldsFromPost($productMeta);
        $topNav = getTopNavigate($brand);
        $youtubeLink = getYoutubeVideoId(@$fields['product-youtube']);
+       $ajaxUrlRequest = route('send_mail');
 
        return view('pages.product', [
            'seo' => $seo,
@@ -39,7 +40,8 @@ class Product extends Controller
            'fields' => $fields,
            'topNav' => $topNav,
            'assetsUrl' => url('/assets/'),
-           'youtube' => $youtubeLink
+           'youtube' => $youtubeLink,
+           'ajaxUrl' => $ajaxUrlRequest
        ]);
    }
 }

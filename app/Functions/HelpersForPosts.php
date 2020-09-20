@@ -48,7 +48,7 @@ function getYoutubeVideoId($link){
     return $match[1];
 }
 
-function getSeo(object $seo):array {
+function getSeo(\Illuminate\Database\Eloquent\Model $seo):array {
     $s = ['%%title%%', '%%sep%%', '%%sitename%%'];
     $r = [$seo->post_title, ' - ', 'palwood'];
     $array= [];

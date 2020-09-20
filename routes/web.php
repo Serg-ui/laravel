@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Main@Index')->name('index');
 
-Route::get('/product/{name}', 'Product@get')->name('product');
+Route::match(['get', 'post'],'/product/{name}', 'Product@get')->name('product');
 
 Route::get('/news/', 'News@get')->name('news');
 
 Route::get('/brand/{parent}/{child?}', 'Brand@get')->name('brand');
+
+Route::post('send_mail', 'SendMail@index')->name('send_mail');
 
