@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 
 
-use App\Attachment;
-use App\Post;
-use App\PostMeta;
-use App\Term;
+use App\Models\Attachment;
+use App\Models\Post;
+use App\Models\Term;
 
 class Product extends Controller
 {

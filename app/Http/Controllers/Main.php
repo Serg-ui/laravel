@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\MyInterfaces\SortProductInterface;
-use App\Post;
-use App\Term;
+use App\Models\Post;
+use App\Models\Term;
 
 class Main extends Controller
 {

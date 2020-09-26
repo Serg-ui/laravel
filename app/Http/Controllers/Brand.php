@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Attachment;
-use App\Term;
+use App\Models\Attachment;
+use App\Models\Term;
 
 
 class Brand extends Controller

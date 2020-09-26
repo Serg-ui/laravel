@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Post extends Model
 
     public function meta()
     {
-        return $this->hasMany('App\PostMeta', 'id_post');
+        return $this->hasMany(PostMeta::class, 'id_post');
     }
 
     public function terms(){

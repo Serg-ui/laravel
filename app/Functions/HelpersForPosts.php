@@ -26,10 +26,10 @@ function getFieldsFromPost(array $fields) :array {
     return $array;
 }
 
-function getTopNavigate(\App\Term $brand, array &$slugs = []):array {
+function getTopNavigate(\App\Models\Term $brand, array &$slugs = []):array {
     $slugs[$brand->name] = $brand->slug;
     if($brand->parent){
-        $brand = \App\Term::find($brand->parent);
+        $brand = \App\Models\Term::find($brand->parent);
         return getTopNavigate($brand, $slugs);
     }
     $slugs = array_reverse($slugs);
