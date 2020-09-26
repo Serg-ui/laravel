@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\MyInterfaces\SortProductInterface;
 use App\Post;
 use App\Term;
@@ -45,7 +44,8 @@ class Main extends Controller
         $title = 'Привет';
         $productUrl = route('product', '');
         $newsUrl = route('news', '');
-
+        //$brands = getBrandsUrl($brands);
+        //dd($brands);
         return view('pages.main', [
             'left' => $sort->leftColumn(),
             'right' => $sort->rightColumn(),
@@ -53,7 +53,8 @@ class Main extends Controller
             'news' => $news,
             'title' => $title,
             'productUrl' => $productUrl,
-            'newsUrl' => $newsUrl
+            'newsUrl' => $newsUrl,
+            'brands' => $brands
         ]);
 
     }

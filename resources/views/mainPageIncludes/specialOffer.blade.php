@@ -3,9 +3,12 @@
     @foreach($brands['product'] as $product )
         <div class='specialOffer'>
             <div><a href="{{$productUrl}}/{{$product['post_name']}}">
+                <picture>
+                    <source type="image/webp"
+                            srcset="assets/{{getImgSizeUrl($product['thumbnail_path'], 'small', true)}}">
 
-
-                    <img src="assets/{{$product['thumbnail_path']}}">
+                    <img src="assets/{{getImgSizeUrl($product['thumbnail_path'], 'small')}}">
+                </picture>
                 </a>
             </div>
             <div><a href="{{$productUrl}}/{{$product['post_name']}}">{{$product['post_title']}}</a><br>

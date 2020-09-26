@@ -14,6 +14,9 @@ class Product extends Controller
    public function get($name)
    {
        $product = Post::with('meta')->where('post_name', '=', $name)->first();
+       if(!$product){
+           abort(404);
+       }
        $brand = Term::find($product->brand_id);
        $productMeta = $product->meta->toarray();
 
@@ -39,7 +42,6 @@ class Product extends Controller
            'slider' => $slider,
            'fields' => $fields,
            'topNav' => $topNav,
-           'assetsUrl' => url('/assets/'),
            'youtube' => $youtubeLink,
            'ajaxUrl' => $ajaxUrlRequest
        ]);

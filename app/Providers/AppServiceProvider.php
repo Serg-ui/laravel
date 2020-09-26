@@ -28,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('url', url('assets'));
+        View::share([
+            'url' => url('assets'),
+            'cssUrl' => url('assets/css'),
+            'jsUrl' => url('assets/js'),
+            'imgUrl' => url('assets/'),
+            'canonUrl' => url()->current() . '/'
+        ]);
     }
 }

@@ -13,7 +13,7 @@ class SendMail extends Controller
         $request->validate([
             'email' => 'required|email',
             'name' => 'required|max:50',
-            'text' => 'max:400',
+            'text' => 'max:500',
             'tel' => 'max:40'
         ]);
         $data = $request->all();

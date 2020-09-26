@@ -56,7 +56,11 @@ $(function(){
                     }
                 },
                 error: function (jqXHR){
-
+                    let q = jqXHR.responseJSON.errors;
+                    for (p in q) {
+                        $("#order form #" + p).html(q[p][0]).css('display', 'block');
+                    }
+                    $('#add').removeAttr('disabled');
                 }
             })
             /*$.post(window.myAjaxUrl, data, function(answer){

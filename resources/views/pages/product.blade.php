@@ -1,9 +1,13 @@
 @extends('layouts.index')
 @section('headStyles')
-    <link rel="stylesheet" type="text/css" href="{{$assetsUrl}}/css/fotorama.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{$cssUrl}}/fotorama.css" media="all"/>
 @endsection
+
+@section('owlJS')
+@endsection
+
 @section('headScripts')
-    <script src="{{$assetsUrl}}/js/fotorama.js" type="text/javascript"></script>
+    <script src="{{$jsUrl}}/fotorama.js" type="text/javascript"></script>
     <script>
         window.myAjaxUrl = '{{$ajaxUrl}}'
     </script>
@@ -14,15 +18,15 @@
         @foreach($topNav as $k => $v)
             <a href="{{$v}}">{{$k}}</a> /
         @endforeach
-        {{$product->post_title}}
+
     </div>
     <div class="single_product_name"><h1 id="name">{{$product->post_title}}</h1></div>
     <div class="catalog2_items">
         <div class="catalog2_item_1">
             <div class="fotorama" data-loop="true" data-autoplay="4000" data-allowfullscreen="native">
-                <img src="{{$assetsUrl}}/{{$product->thumbnail_path}}">
+                <img src="{{$url}}/{{getImgSizeUrl($product->thumbnail_path, 'large', true)}}">
                 @foreach($slider as $s)
-                    <img src="{{$assetsUrl}}/{{$s->guid}}">
+                    <img src="{{$url}}/{{getImgSizeUrl($s->guid, 'large', true)}}">
                 @endforeach
             </div>
         </div>
@@ -53,7 +57,7 @@
                     <input type="text" placeholder="Ваше имя *" name="name"><div class="form_error" id="fio"></div>
                     <input type="email" placeholder="E-mail *" name="email"><div class="form_error" id="email"></div>
                     <input type="tel" placeholder="Телефон (не обязательно)" name="tel"><div class="form_error" id="tel"></div>
-                    <textarea placeholder="Ваше сообщение" name="text"></textarea><br>
+                    <textarea placeholder="Ваше сообщение" name="text"></textarea><div class="form_error" id="text"></div>
                     <div id="form_success"></div>
                     <input id="add" type="button" name="otpr" value="Оставить заявку"><br>
 

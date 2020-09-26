@@ -49,10 +49,47 @@ function getYoutubeVideoId($link){
 }
 
 function getSeo(\Illuminate\Database\Eloquent\Model $seo):array {
-    $s = ['%%title%%', '%%sep%%', '%%sitename%%'];
-    $r = [$seo->post_title, ' - ', 'palwood'];
+    $s = ['%%title%%', '%%term_title%%', '%%sep%%', '%%sitename%%'];
+    $r = [$seo->post_title, $seo->name ,'-', 'palwood'];
     $array= [];
     $array['title'] = str_replace($s, $r, $seo->seo_title);
     $array['desc'] = str_replace($s, $r, $seo->seo_desc);
     return $array;
+}
+
+function getImgSizeUrl(string $path, string $size = 'full', bool $webp = false): string {
+    $newPath = explode('.', $path);
+    $name = $newPath[0];
+    if($size !== 'full') {
+        $newPath[0] = $name . "-$size";
+    }
+    if($webp) {
+        $newPath[count($newPath) - 1] = 'webp';
+    }
+    $newPath2 = implode('.', $newPath);
+
+    if(file_exists(base_path('public/assets/') . $newPath2)) {
+        return $newPath2;
+    }
+    else{
+        $newPath[0] = $name;
+
+        return implode('.', $newPath);
+    }
+}
+
+function getBrandsUrl(array $brands): array {
+    $name = array_column($brands, 'id');
+
+    for($i = 0; $i <= count($brands) - 1; $i++){
+        if($brands[$i]['parent']){
+            $key = array_keys($name, $brands[$i]['parent']);
+            $brands[$i]['url'] = route('brand',[$brands[$key[0]]['slug'], $brands[$i]['slug']]);
+        }
+        else{
+            $brands[$i]['url'] = route('brand', $brands[$i]['slug']);
+        }
+    }
+
+    return $brands;
 }

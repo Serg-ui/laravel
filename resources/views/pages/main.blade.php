@@ -1,5 +1,6 @@
 @extends('layouts.index')
 @section('content')
+        @include('mainPageIncludes.carousel')
         <div class="items">
             <div class="item">
                 <h4>Специальные предложения</h4>
@@ -15,3 +16,4 @@
             </div>
         </div>
 @endsection
+

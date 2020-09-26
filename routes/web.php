@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Main@Index')->name('index');
 
-Route::match(['get', 'post'],'/product/{name}', 'Product@get')->name('product');
+Route::get('/product/{name}', 'Product@get')->name('product');
 
-Route::get('/news/', 'News@get')->name('news');
+Route::get('/news/{name}', 'News@get')->name('news');
 
 Route::get('/brand/{parent}/{child?}', 'Brand@get')->name('brand');
 

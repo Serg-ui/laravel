@@ -9,14 +9,18 @@
     <title>{{$seo['title'] ?? ''}}</title>
     <meta name="description" content="{{$seo['desc'] ?? ''}}"/>
 
-    <link rel="stylesheet" type="text/css" href="{{$url}}/css/styles.css" media="all"/>
-    <script src="{{$url}}/js/jq.js" type="text/javascript"></script>
-    <script src="{{$url}}/js/nav.js" type="text/javascript"></script>
-    <script src="{{$url}}/js/1.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{$cssUrl}}/styles.css" media="all"/>
+    <script src="{{$jsUrl}}/jq.js" type="text/javascript"></script>
+    <script src="{{$jsUrl}}/nav.js" type="text/javascript"></script>
+    <script src="{{$jsUrl}}/1.js" type="text/javascript"></script>
+    @section('owlJS')
+        <script src="{{$jsUrl}}/owl.carousel.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="{{$cssUrl}}/owl.carousel.min.css" media="all"/>
+        @show
     @yield('headStyles')
     @yield('headScripts')
     @yield('forAjaxRequest')
-    <link rel="canonical" href="{{$canonLink ?? ''}}" />
+    <link rel="canonical" href="{{$canonUrl ?? ''}}" />
 
 </head>
 <body>
@@ -32,29 +36,45 @@
     </div>
 </header>
 
-<div class="menu1">
-    <nav id="menujs1" class="menu"><ul><li id="menu-item-75" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-55 current_page_item menu-item-75"><a href="https://palwood.ru/" aria-current="page">Главная</a></li>
-            <li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-509"><a href="https://palwood.ru/contacts/">О Компании</a></li>
-            <li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-508"><a href="https://palwood.ru/service/">Услуги</a></li>
-            <li id="menu-item-18" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-18"><a href="#">Продукция</a>
-                <ul class="sub-menu">
-                    <li id="menu-item-494" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-494"><a href="https://palwood.ru/brand/multione/">Мини-погрузчики Multione</a></li>
-                    <li id="menu-item-493" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-493"><a href="https://palwood.ru/brand/ferri/">Косилки Ferri</a></li>
-                    <li id="menu-item-495" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-495"><a href="https://palwood.ru/brand/greenmech/">Измельчители древесины GreenMech</a></li>
-                    <li id="menu-item-496" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-496"><a href="https://palwood.ru/brand/snowex/">Пескоразбрасыватели SnowEx</a></li>
-                    <li id="menu-item-497" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-497"><a href="https://palwood.ru/brand/cm-crusher/">Дорожные фрезы CM Crusher</a></li>
-                    <li id="menu-item-498" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-498"><a href="https://palwood.ru/brand/cerruti/">Снегоочистители Cerruti</a></li>
-                    <li id="menu-item-499" class="menu-item menu-item-type-taxonomy menu-item-object-brand menu-item-499"><a href="https://palwood.ru/brand/turbo-turf/">Гидропосевные установки Turbo Turf</a></li>
-                </ul>
-            </li>
-            <li id="inst"><a href="https://www.instagram.com/palwood_ru" target="_blank" title="Инстаграм"><i class="fab fa-instagram"></i></a></li><li class="phone"> +7 (812) 313 16 29</li></ul>
-    </nav>
-</div>
+@include('menus.main')
 
 <div class="content">
     <div class="wrapper">
         @yield('content')
     </div>
 </div>
+<script>
+    $(function(){
+        $('.owl-carousel').owlCarousel({
+            margin: 15,
+            loop:true,
+            dots:true,
+            autoplay:true,
+            nav: false,
+
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:2,
+
+                    loop:true
+                },
+                600:{
+                    items:3,
+
+                    loop:true
+                },
+                1000:{
+                    items:3,
+
+                    loop:true
+                }
+            }
+        })
+    })
+
+</script>
 </body>
 </html>

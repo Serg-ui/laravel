@@ -2,12 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Attachment;
+use App\Term;
+
 
 class Brand extends Controller
 {
-    public function get($parent, $child, $child2)
+    public function get($parent, $child = null)
     {
-        dump($parent, $child);
+        if($child){
+            $brand = Term::where('slug', '=', $child)->first();
+            if(!$brand){
+                abort(404);
+            }
+            $products = $this->generateProducts($brand);
+            $blade = 'products';
+        }
+        else {
+            $brand = Term::where('slug', '=', $parent)->first();
+            if(!$brand){
+                abort(404);
+            }
+            $children = $this->hasChild($brand);
+            if ($children) {
+                $products = $this->generateChildren($children);
+                $blade = 'brands';
+            }
+            else {
+                $products = $this->generateProducts($brand);
+                $blade = 'products';
+
+            }
+        }
+        //dd($blade);
+        return view('pages.brand', [
+            'brand' => $brand,
+            'seo' => getSeo($brand),
+            'topNav' => getTopNavigate($brand),
+            'products' => $products,
+            'blade' => $blade
+        ]);
+    }
+
+    private function hasChild(Term $brand)
+    {
+        $brands = Term::where('parent', '=', $brand->id)->get();
+
+        if($brands->isEmpty()){
+            return null;
+        }
+        else{
+            return $brands;
+        }
+    }
+
+    private function generateChildren($children) :array
+    {
+        $children = $children->toArray();
+
+        foreach ($children as $k => $v){
+            $a = Attachment::select('guid')->where('id', $v['thumbnail'])->first();
+            $children[$k]['thumb_path'] = $a->guid;
+        }
+        return $children;
+    }
+
+    private function generateProducts(Term $brand)
+    {
+        return $products = $brand->posts->toarray();
     }
 }
