@@ -11,18 +11,14 @@ class Brand extends Controller
     public function get($parent, $child = null)
     {
         if($child){
-            $brand = Term::where('slug', '=', $child)->first();
-            if(!$brand){
-                abort(404);
-            }
+            $brand = Term::where('slug', '=', $child)->firstOrFail();
+
             $products = $this->generateProducts($brand);
             $blade = 'products';
         }
         else {
-            $brand = Term::where('slug', '=', $parent)->first();
-            if(!$brand){
-                abort(404);
-            }
+            $brand = Term::where('slug', '=', $parent)->firstOrFail();
+
             $children = $this->hasChild($brand);
             if ($children) {
                 $products = $this->generateChildren($children);

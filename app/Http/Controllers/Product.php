@@ -12,10 +12,8 @@ class Product extends Controller
 {
    public function get($name)
    {
-       $product = Post::with('meta')->where('post_name', '=', $name)->first();
-       if(!$product){
-           abort(404);
-       }
+       $product = Post::with('meta')->where('post_name', '=', $name)->firstOrFail();
+
        $brand = Term::find($product->brand_id);
        $productMeta = $product->meta->toarray();
 
