@@ -1,0 +1,13 @@
+.wrapper{
+    width: 100%;
+
+}
+.leftNav{
+    float: left;
+    width: 20%;
+
+}
+.content{
+    float: left;
+    width: 80%;
+}

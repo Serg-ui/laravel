@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Index;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\RegisterUser;
 use Illuminate\Support\Facades\Route;
@@ -34,16 +35,5 @@ Route::get('login', [Login::class, 'login'])->name('login');
 Route::post('login', [Login::class, 'loginPost'])->name('loginPost');
 Route::get('logout', [Login::class, 'logout'])->name('logout');
 
-// Admin panel
-Route::group([
-        'prefix' => 'admin',
-        'middleware' => ['can:isAdmin']
-    ],
-    function (){
-        Route::get('/', [\App\Http\Controllers\Admin\Index::class, 'index'])
-            ->name('admin');
-        Route::get('brands', [\App\Http\Controllers\Admin\Index::class, 'brands'])
-            ->name('admin.brands');
 
-});
 
