@@ -20,4 +20,6 @@ Route::group([
 Route::post('sort', [Index::class, 'brandsPost'])
     ->name('admin.sort');
 
+Route::post('images', [Index::class, 'images'])
+    ->name('admin.images');
 

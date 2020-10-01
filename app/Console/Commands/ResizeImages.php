@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Attachment;
+use App\Models\Attachment;
 use Illuminate\Console\Command;
 
 class ResizeImages extends Command
@@ -22,6 +22,7 @@ class ResizeImages extends Command
     protected $description = 'Generate differents image sizes and extensions';
 
     protected $size =[
+        150 => '-thumb',
         350 => '-small',
         600 => '-medium',
         1200 => '-large'

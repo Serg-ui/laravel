@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attachment;
 use App\Models\Post;
 use App\Models\Term;
 use Illuminate\Http\Request;
@@ -91,8 +92,28 @@ class Index extends Controller
 
     public function edit(Request $request)
     {
+        $product = Post::where('post_name', $request->id)->firstOrFail();
+        $imagesId = $product->meta()->where('meta_key', '=', 'product-images')->get()->toArray();
+
+        $images = Attachment::find(array_column($imagesId, 'meta_value'));
+
         return view('admin.brandsEdit', [
-            'product' => Post::where('post_name', $request->id)->firstOrFail()
+            'product' => $product,
+            'images' => $images
+        ]);
+    }
+
+    public function images(Request $request)
+    {
+        if($request->filter){
+            return view('admin.api.imagesList', [
+                'images' => Attachment::select('id', 'post_title', 'guid')
+                                                ->where('post_title', 'like', "%$request->filter%")
+                                                ->get()
+            ]);
+        }
+        return view('admin.api.imagesList', [
+            'images' => Attachment::select('id', 'post_title', 'guid')->take(5)->get()
         ]);
     }
 }
