@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\Ajax;
 use App\Http\Controllers\Admin\Index;
+use App\Http\Controllers\Admin\Products;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,15 +13,15 @@ Route::group([
     'prefix' => 'brands'
 ],
     function () {
-        Route::get('/', [Index::class, 'brands'])
+        Route::get('/', [Products::class, 'index'])
             ->name('admin.brands');
-        Route::get('edit', [Index::class, 'edit'])
+        Route::get('edit', [Products::class, 'edit'])
             ->name('admin.brands.edit');
     });
 
-Route::post('sort', [Index::class, 'brandsPost'])
+Route::post('sort', [Ajax::class, 'productsFilter'])
     ->name('admin.sort');
 
-Route::post('images', [Index::class, 'images'])
+Route::post('images', [Ajax::class, 'images'])
     ->name('admin.images');
 
