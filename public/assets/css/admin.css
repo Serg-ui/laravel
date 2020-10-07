@@ -58,9 +58,15 @@ img{
 .imgSelected {
     border: 3px solid #003d6b;
 }
+.imgSelectedSlider{
+    border: 1px solid #f70404;
+}
 
 .sliderImage{
     width: 100px;
     float: left;
     margin: 7px;
+}
+#thumbnail{
+    width: 150px;
 }

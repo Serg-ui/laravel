@@ -25,3 +25,8 @@ Route::post('sort', [Ajax::class, 'productsFilter'])
 Route::post('images', [Ajax::class, 'images'])
     ->name('admin.images');
 
+Route::post('product-edit', [Ajax::class, 'productEdit'])
+    ->name('admin.productEdit');
+Route::post('uploadImg', [\App\Http\Controllers\Admin\UploadImage::class, 'uploadImage'])
+    ->name('admin.uploadImg');
+

@@ -12,6 +12,7 @@
         crossorigin="anonymous"></script>
     <script>
         window.imageLoadUrl = "{{ route('admin.images') }}"
+        window.productEdit = "{{ route('admin.productEdit') }}"
     </script>
     <script src="{{ $jsUrl }}/imagesLib.js?={{ random_int(10, 999) }}"></script>
     <title>Document</title>
@@ -28,6 +29,22 @@
         </div>
     </div>
 
+    <div class="imagesHidenWrap">
+        <div class="imagesHiden">
+            <div id="imagesTopNav">
+                <input type="button" id="confirmImg" value="Добавить">
+                <input type="text" id="findByName">
+                <input type="button" id="goFindByName" value="Найти">
+            </div>
+
+            <div id="imagesList"></div>
+            <div id="imagesListFilter"></div>
+
+        </div>
+        <h3 id="closeWrap"><a href="#">Закрыть</a></h3>
+
+
+    </div>
 @yield('bottomScript')
 </body>
 </html>

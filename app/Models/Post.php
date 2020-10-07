@@ -18,6 +18,14 @@ class Post extends Model
         return $this->belongsToMany(Term::class);
     }
 
+    public function categories(){
+        return $this->belongsToMany(Term::class)->where('id_taxonomy', '<>', 1);
+    }
+    public function brands(){
+        return $this->belongsToMany(Term::class)->where('id_taxonomy', '=', 1)
+            ->where('name', '<>', 'Ferri');
+    }
+
   //  public function getPostTypeAttribute($key)
    // {
     //    return $key . '12gfhfhfgh3';

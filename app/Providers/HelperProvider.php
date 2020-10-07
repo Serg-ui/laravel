@@ -24,5 +24,6 @@ class HelperProvider extends ServiceProvider
     public function boot()
     {
         require_once app_path('Functions/HelpersForPosts.php');
+        require_once app_path('Functions/HelpersForAdminPanel.php');
     }
 }

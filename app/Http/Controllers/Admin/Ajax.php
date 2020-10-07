@@ -7,6 +7,7 @@ use App\Models\Attachment;
 use App\Models\Post;
 use App\Models\Term;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class Ajax extends Controller
 {
@@ -80,5 +81,21 @@ class Ajax extends Controller
         return view('admin.api.imagesList', [
             'images' => Attachment::select('id', 'post_title', 'guid')->take(5)->get()
         ]);
+    }
+
+    public function productEdit(Request $request)
+    {
+        $product = Post::where('post_name', '=', $request->slug)->first();
+
+        if($request->slider){
+            $slider = $product->meta()
+                ->where('meta_key', '=','product-images' );
+            $slider->delete();
+
+            foreach ($request->slider as $img) {
+                $slider->create(['meta_key' => 'product-images',
+                    'meta_value' => $img])->save();
+            }
+        }
     }
 }
