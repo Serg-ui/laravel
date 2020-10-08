@@ -7,8 +7,18 @@ $(function (){
     // Кто открыл библ. слайдер или миниатюра
     var actionLib
     // onbeforeunload - посмотреть про это событие
+
+
     var sliderChange = false
     var thumbnailChange = false
+    var categoriesChange = false
+    var brandChange = false
+    var spec1Change = false
+    var spec2Change = false
+    var price1Change = false
+    var price2Change = false
+    var existChange = false
+
     var imagesLoaded = false
 
 
@@ -98,13 +108,63 @@ $(function (){
     $("#doEdit").on('click', function (e){
         e.preventDefault()
 
-
-
         dataToServer = {
-            'slug': productId,
-            'slider': []
+            'slug': productId
         }
 
+        // Комплектация
+        if(spec1Change){
+            dataToServer.spec1 = $("#spec1 textarea").val()
+        }
+
+        // Характеристики
+        if(spec2Change){
+            dataToServer.spec2 = $("#spec2 textarea").val()
+        }
+
+        // Бренд
+        if(brandChange){
+            dataToServer.brand = $("#brand select[name='brand']").val()
+        }
+
+        // Миниатюра
+        if (thumbnailChange){
+            dataToServer.thumbnail = $(".imgThumbnail").attr('data-id')
+        }
+
+        // Категории
+        if(categoriesChange) {
+            let $cat = $("#categories input[type='checkbox']")
+            let categories = {}
+
+            $cat.map(function (indx, element) {
+                let cat = {}
+                cat.value = element.value
+                cat.checked = element.checked
+                categories[indx] = cat
+            })
+            dataToServer.cat = categories
+        }
+
+        // Наличие
+        if(existChange){
+            dataToServer.exist = $("#nalichie input[name='product-exist']")[0].checked
+        }
+
+
+        // Цена
+        if(price1Change){
+            dataToServer.price1 = elementValue($("#product-price input[name='price1']"))
+        }
+        if(price2Change){
+            let price2 = $("#product-price input[name='price2']").val()
+            if(price2 === ''){
+                price2 = 0
+            }
+            dataToServer.price2 = price2
+        }
+
+        // Слайдер
         if(sliderChange) {
             let $img = $("#slider img")
             let imgId = []
@@ -113,14 +173,14 @@ $(function (){
             })
             dataToServer.slider = imgId
         }
-
-        $.post(
-            window.productEdit,
-            dataToServer,
-            function (data){
-
-            }
-            )
+        if(Object.keys(dataToServer).length > 1) {
+            $.post(
+                window.productEdit,
+                dataToServer,
+                function (data){
+                    document.location.reload()
+                })
+        }
     })
     $("#btnImgDel").on('click', function (){
         $(".imgSelectedSlider").parent(".sliderImage").remove()
@@ -157,11 +217,37 @@ $(function (){
             processData: false
         });
 
-        /*$.post('http://localhost:8888/laravel/public/admin/uploadImg', data2, function (data){
-          console.log(data)
-        })*/
     })
 
+    // Проверки на изменения
+    function elementValue($element){
+        if($element.val() === ''){
+            return 0;
+        }
+        return $element.val()
+    }
+
+    $("#categories input[type='checkbox']").on('change', function (){
+        categoriesChange = true
+    })
+    $("#brand select[name='brand']").on('change', function (){
+       brandChange = true
+    })
+    $("#spec1 textarea").on('change', function (){
+        spec1Change = true
+    })
+    $("#spec2 textarea").on('change', function (){
+        spec2Change = true
+    })
+    $("#product-price input[name='price1']").on('change', function (){
+        price1Change = true
+    })
+    $("#product-price input[name='price2']").on('change', function (){
+        price2Change = true
+    })
+    $("#nalichie input[name='product-exist']").on('change', function (){
+        existChange = true
+    })
 })
 
 

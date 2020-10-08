@@ -85,10 +85,62 @@ class Ajax extends Controller
 
     public function productEdit(Request $request)
     {
-        $product = Post::where('post_name', '=', $request->slug)->first();
+
+        $product = Post::where('post_name', '=', $request->slug)->firstOrFail();
+        $meta = $product->meta();
+
+        /*echo "<pre>";
+        print_r($request->all());
+        die;*/
+        if(isset($request->price2)){
+            $meta->updateOrCreate(['meta_key' => 'product-price2'], ['meta_value' => $request->price2]);
+        }
+        if(isset($request->price1)){
+            $meta->updateOrCreate(['meta_key' => 'product-price'], ['meta_value' => $request->price1]);
+        }
+
+        if(isset($request->exist)){
+            $meta->updateOrCreate(['meta_key' => 'product-exist'], ['meta_value' => $request->exist]);
+        }
+
+        if($request->cat){
+            $terms = $product->terms();
+            foreach ($request->cat as $category){
+                if($category['checked'] === 'true'){
+                    $terms->attach($category['value']);
+                }
+                else{
+                    $terms->detach($category['value']);
+                }
+            }
+        }
+
+        if($request->brand){
+            $brandId = $product->brand_id;
+            $product->brand_id = $request->brand;
+            $product->save();
+            $product->terms()->detach($brandId);
+            $product->terms()->attach($request->brand);
+        }
+
+        if($request->thumbnail){
+            $thumb = Attachment::find($request->thumbnail);
+            $product->thumbnail = $thumb->id;
+            $product->thumbnail_path = $thumb->guid;
+            $product->save();
+            $meta->updateOrCreate(['meta_key' => '_thumbnail_id'], ['meta_value' => $thumb->id]);
+        }
+
+        if($request->spec1){
+            $meta->updateOrCreate(['meta_key' => 'product-spec1'], ['meta_value' => $request->spec1]);
+        }
+
+        if($request->spec2){
+            $meta->updateOrCreate(['meta_key' => 'product-spec2'], ['meta_value' => $request->spec2]);
+        }
 
         if($request->slider){
-            $slider = $product->meta()
+            $slider = $meta
                 ->where('meta_key', '=','product-images' );
             $slider->delete();
 

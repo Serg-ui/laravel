@@ -32,7 +32,7 @@
         </div>
         <div class="catalog2_item_2">
             <b>Статус: </b>
-            @if($fields['product-exist'])
+            @if($fields['product-exist'] === 'true')
                 В наличии
             @else
                 Нет в наличии

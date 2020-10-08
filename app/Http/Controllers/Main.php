@@ -10,14 +10,14 @@ class Main extends Controller
 {
     public function Index(SortProductInterface $sort)
     {
-        $products = Term::with('posts')
+        /*$products = Term::with('posts')
             ->where('id_taxonomy', 1)
             ->where('name', '<>', 'Ferri')
             ->get();
         $f = $products->whereIn('name', ['Multione', 'Косилки мульчировщики для трактора']);
         $f2 = $products->forget($f->keys()->all());
 
-        dd(time());
+        dd(time());*/
 
         $brands = Term::where('id_taxonomy', 1)
             ->get()
